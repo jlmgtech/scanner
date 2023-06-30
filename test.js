@@ -66,26 +66,36 @@ async function appmenu(id) {
 }
 
 async function listFiles(directory, fileNames) {
+
     try {
-        while (fileNames.pop());
+
         const files = await fs.readdir(__dirname + "/" + directory);
 
         for (const file of files) {
+
             const filePath = path.join(directory, file);
             const stats = await fs.stat(filePath);
 
-            if (stats.isFile()) {
+            if (stats.isFile() && file[0] !== "_") {
                 fileNames.push(filePath);
             } else if (stats.isDirectory()) {
-                const nestedFiles = await listFiles(filePath);
-                fileNames.push(...nestedFiles);
+                const err = await listFiles(filePath, fileNames);
+                if (err) {
+                    return err;
+                }
             }
+
         }
 
         return 0;
+
     } catch(e) {
+
+        console.error(e);
         return -1;
+
     }
+
 }
 
 start(8080, main);

@@ -28,10 +28,21 @@ app.get("/:id/", (req, res) => {
     }
 });
 
+const styles = `
+<style>
+html, body {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    color: #08f;
+}
+</style>
+`;
+
 const show = id => html => 
     new Promise((resolve, reject) => {
         conns[id] = resolve;
-        evts.emit(id, html);
+        evts.emit(id, styles + html);
     });
 
 
