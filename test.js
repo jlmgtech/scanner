@@ -2,6 +2,12 @@ const fs = require("fs").promises;
 const path = require('path');
 const {start} = require("./index.js");
 const users = {
+    "john": {
+        name: "John McMathers",
+        password: "asdfasdf",
+        token: "1392jf",
+    },
+
     "newbie": {
         name: "newbie",
         password: "password",
